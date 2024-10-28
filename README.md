@@ -45,6 +45,22 @@ You need python version 3.10 or higher. We recommend pyenv.
 3. Login (default)
 `u: admin, p: general`
 
+## Hook up to Athena
+1. Sign in to AWS
+`aws sso login --profile valerann`
+2. Export environment variable
+`export AWS_DEFAULT_PROFILE=globalvia`
+3. Restart
+`make flask-app`
+`make node-app`
+4. Add connection on UI. Settings > Database > Athena. Details will be something like this:
+`awsathena+rest://@athena.eu-west-1.amazonaws.com:443/archive-staging?s3_staging_dir=s3://athena.globalvia.valerann`
+
+## Use Mapbox basemap
+1. Add API KEY to the terminal where you are running the backend.
+`export MAPBOX_API_KEY = <<very-secret-key>>`
+
+
 ### Troubleshooting
 * Blah -- need to install mysql and python 3.10
 `brew install mysql` (if mysql errors)
