@@ -17,6 +17,40 @@ specific language governing permissions and limitations
 under the License.
 -->
 
+# VSuperset
+A fork of Superset, designed for creating Valerann dashboards with Athena data.
+
+## Setup
+
+You need python version 3.10 or higher. We recommend pyenv.
+
+[...]
+
+1. Create environment.
+`make venv`
+2. Activate environment.
+`make activate`
+3. Install dependencies.
+`make install`
+4. Create Secret Key (for example).
+`export SUPERSET_SECRET_KEY=SWo0szu/yetMBCngT6lD4a22xA9WnKq7ZRyH8ZkOW9O+7HAacqUKwFus`
+5. Run updates
+`make update`
+
+## Run
+1. Start backend
+`make flask-app`
+2. Start frontend
+`make node-app`
+3. Login (default)
+`u: admin, p: general`
+
+### Troubleshooting
+* Blah -- need to install mysql and python 3.10
+`brew install mysql` (if mysql errors)
+`brew install pkg-config`
+`brew install node` (if npm not working)
+
 # Superset
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/license/apache-2-0)
