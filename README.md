@@ -30,11 +30,13 @@ You need python version 3.10 or higher. We recommend pyenv.
 `make venv`
 2. Activate environment.
 `make activate`
-3. Install dependencies.
-`make install`
-4. Create Secret Key (for example).
+3. Create Secret Key (for example).
 `export SUPERSET_SECRET_KEY=SWo0szu/yetMBCngT6lD4a22xA9WnKq7ZRyH8ZkOW9O+7HAacqUKwFus`
-5. Run updates
+4. Enable jinja templating in SQL queries.
+In `config.py` set `ENABLE_TEMPLATE_PROCESSING` to `True` (this should be on line 468)
+5. Install dependencies.
+`make install`
+6. Run updates (not sure if this is necessary)
 `make update`
 
 ## Run
@@ -60,6 +62,9 @@ You need python version 3.10 or higher. We recommend pyenv.
 1. Add API KEY to the terminal where you are running the backend.
 `export MAPBOX_API_KEY = <<very-secret-key>>`
 
+## Developing
+For every change, you need to restart the backend:
+`make flask-app`
 
 ### Troubleshooting
 * Blah -- need to install mysql and python 3.10
