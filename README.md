@@ -32,6 +32,8 @@ You need python version 3.10 or higher. We recommend pyenv.
 `make activate`
 3. Create Secret Key (for example).
 `export SUPERSET_SECRET_KEY=SWo0szu/yetMBCngT6lD4a22xA9WnKq7ZRyH8ZkOW9O+7HAacqUKwFus`
+You can generate another one using this command:
+`openssl rand -base64 42`
 4. Enable jinja templating in SQL queries.
 In `config.py` set `ENABLE_TEMPLATE_PROCESSING` to `True` (this should be on line 468)
 5. Install dependencies.
@@ -65,6 +67,13 @@ In `config.py` set `ENABLE_TEMPLATE_PROCESSING` to `True` (this should be on lin
 ## Developing
 For every change, you need to restart the backend:
 `make flask-app`
+
+## Saving Dashboards to Database
+We recommend saving them to hub_dev account (Postgres).
+You will need to add hub_dev as a datasource using the UI and the admin credentials, which can be found using
+`mashina postgres info hub_dev --environment prod --username admin`
+You will also need to add `psycopg2` to the requirements:
+`pip install psycopg2`
 
 ### Troubleshooting
 * Blah -- need to install mysql and python 3.10
