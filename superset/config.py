@@ -1664,6 +1664,7 @@ SEND_FILE_MAX_AGE_DEFAULT = int(timedelta(days=365).total_seconds())
 
 # URI to database storing the example data, points to
 # SQLALCHEMY_DATABASE_URI by default if set to `None`
+# TODO : Update this to postgres db
 SQLALCHEMY_EXAMPLES_URI = (
     "sqlite:///" + os.path.join(DATA_DIR, "examples.db") + "?check_same_thread=false"
 )
