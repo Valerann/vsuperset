@@ -42,7 +42,7 @@ In `config.py` set `ENABLE_TEMPLATE_PROCESSING` to `True` (this should be on lin
 ## Run
 1. Start backend
 `make flask-app`
-2. Start frontend
+2. Start frontend (in a separate terminal in parallel to backend)
 `make node-app`
 3. Login (default)
 `u: admin, p: general`
@@ -50,7 +50,7 @@ In `config.py` set `ENABLE_TEMPLATE_PROCESSING` to `True` (this should be on lin
 ## Hook up to Athena
 1. Sign in to AWS
 `aws sso login --profile valerann`
-2. Export environment variable
+2. Export environment variable. This needs to be done in the same terminal where your backend is running!
 `export AWS_DEFAULT_PROFILE=globalvia`
 3. Restart
 `make flask-app`
