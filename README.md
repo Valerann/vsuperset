@@ -68,12 +68,25 @@ In `config.py` set `ENABLE_TEMPLATE_PROCESSING` to `True` (this should be on lin
 For every change, you need to restart the backend:
 `make flask-app`
 
+## Using a Postgres as Metadata Database (e.g. for Dashboards)
+1. Create `.env` file in the `/superset` folder following the `.env_example` template. This will get read by L204(ish) `SQLALCHEMY_DATABASE_URI` in `superset/config.py`.
+2. From the root directory, run `make superset`. This initialises the data and runs all the migrations required.
+3. Start the application again (`make flask-app`, `make node-app`).
+4. Log in with `u: admin, p: general`.
+5. You may need to change the `SUPERSET_SECRET_KEY`. Just use `openssl rand -base64 42` and `export SUPERSET_SECRET_KEY=the-result-from-openssl`.
+
 ## Saving Dashboards to Database
 We recommend saving them to hub_dev account (Postgres).
 You will need to add hub_dev as a datasource using the UI and the admin credentials, which can be found using
 `mashina postgres info hub_dev --environment prod --username admin`
 You will also need to add `psycopg2` to the requirements:
 `pip install psycopg2`
+
+## Caching Data
+Caching does not work by default. Many dashboards will display the same data for a month, so do not need regular refreshing. In order to save costs and decrease loading time, we can cache the data (for example, in Redis).
+To do this, modify the `FILTER_STATE_CACHE_CONFIG` in `superset/config.py` (roughly L779) to your desired Redis URL. TODO -- add this to `.env` and update README.
+You can find the details of available Redis clusters by using a Mashina command like:
+`mashina elasticache list globalvia`
 
 ### Troubleshooting
 * Blah -- need to install mysql and python 3.10

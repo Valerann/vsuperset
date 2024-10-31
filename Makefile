@@ -22,6 +22,12 @@ PYTHON=`command -v python3.11 || command -v python3.10`
 
 install: superset pre-commit
 
+run: # Run the app using globalvia config
+	export AWS_DEFAULT_PROFILE=globalvia
+	make flask-app
+	make node-app
+	echo "Running on localhost:9090"
+
 superset:
 	# Install external dependencies
 	pip install -r requirements/development.txt

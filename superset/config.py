@@ -769,21 +769,37 @@ CACHE_DEFAULT_TIMEOUT = int(timedelta(days=1).total_seconds())
 CACHE_CONFIG: CacheConfig = {"CACHE_TYPE": "NullCache"}
 
 # Cache for datasource metadata and query results
-DATA_CACHE_CONFIG: CacheConfig = {"CACHE_TYPE": "NullCache"}
+DEFAULT_DATA_CACHE_CONFIG: CacheConfig = {"CACHE_TYPE": "NullCache"}
+# DATA_CACHE_CONFIG = os.environ.get("DATA_CACHE_CONFIG", DEFAULT_DATA_CACHE_CONFIG)
 
 # Cache for dashboard filter state. `CACHE_TYPE` defaults to `SupersetMetastoreCache`
 # that stores the values in the key-value table in the Superset metastore, as it's
 # required for Superset to operate correctly, but can be replaced by any
 # `Flask-Caching` backend.
-FILTER_STATE_CACHE_CONFIG: CacheConfig = {
-    "CACHE_TYPE": "SupersetMetastoreCache",
-    "CACHE_DEFAULT_TIMEOUT": int(timedelta(days=90).total_seconds()),
-    # Should the timeout be reset when retrieving a cached value?
-    "REFRESH_TIMEOUT_ON_RETRIEVAL": True,
-    # The following parameter only applies to `MetastoreCache`:
-    # How should entries be serialized/deserialized?
-    "CODEC": JsonKeyValueCodec(),
+
+FILTER_STATE_CACHE_CONFIG = {
+    "CACHE_TYPE": "RedisCache",
+    "CACHE_DEFAULT_TIMEOUT": 86400,
+    "CACHE_KEY_PREFIX": "superset_filter_cache",
+    "CACHE_REDIS_URL": "redis://rep-group-1-staging-001.wokk7q.0001.euw1.cache.amazonaws.com",
 }
+DATA_CACHE_CONFIG = {
+    "CACHE_TYPE": "RedisCache",
+    "CACHE_DEFAULT_TIMEOUT": 86400,
+    "CACHE_KEY_PREFIX": "superset_data_cache",
+    "CACHE_REDIS_URL": "redis://rep-group-1-staging-001.wokk7q.0001.euw1.cache.amazonaws.com",
+}
+
+# # The following 9 lines were the original configuration for FILTER_STATE_CACHE_CONFIG
+# FILTER_STATE_CACHE_CONFIG: CacheConfig = {
+#     "CACHE_TYPE": "SupersetMetastoreCache",
+#     "CACHE_DEFAULT_TIMEOUT": int(timedelta(days=90).total_seconds()),
+#     # Should the timeout be reset when retrieving a cached value?
+#     "REFRESH_TIMEOUT_ON_RETRIEVAL": True,
+#     # The following parameter only applies to `MetastoreCache`:
+#     # How should entries be serialized/deserialized?
+#     "CODEC": JsonKeyValueCodec(),
+# }
 
 # Cache for explore form data state. `CACHE_TYPE` defaults to `SupersetMetastoreCache`
 # that stores the values in the key-value table in the Superset metastore, as it's
